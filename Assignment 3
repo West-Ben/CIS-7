@@ -11,26 +11,22 @@
   input = 1.0, 5.1, 2.4, 7.2, and 5.3; what are output values?
   output = 1.0, 2.4, 7.2, 5.3
   
-  #37:
-     if ~((v1 < v2) ∨ odd(n)) ∨ (~(v1 < v2) ^ odd(n)) -> 
-      a
-     else
-      b
-     end if
+  #37: a= (v1 < v2) b= (odd(n))
+    ( a ∨ b )' ∨ (a' ^ b)
+    a' ^ b' ∨  (a' ^ b)
+    a' ^ (b' v a') ^ (b' v b)
+    a' ^ (b' v a') ^ T
+    a' ^ T
   
   #38:
-   if ~(A ^ B) -> C
-    a
-   else
-    b
-   end if
+    (a ^ b)' ^ c
    
-   does this output statement a? Yes, A = false, B = false, ~(A ^ B) = true, -> C = true, so it executes a
+   does this output statement a? Yes, A = false, B = false, (A ^ B)' = true,  C = true, so  it exectutes statement 1
   
   #61: Percival is telling the truth " at least one" would be a true statement.
   Since Percival is telling the truth then Llewellyn must be the liar.
   percival = A; Llewellyn = B;
-  if (A ∨ B) 
+  if (A ∨ B) if statement is false
   since A is true then the statement is true.
   
   #62: Merlin = A; Meredith = B;
@@ -44,7 +40,7 @@
   Rothwold is a truth teller, the statement he makes is true whether he is a liar of not.
   therefore Rothworld is the truth teller and Grymlin is a truth teller since the statement is true.
   
-  #64: (A ^ B)
+  #64: (A ^ B) statement = ( T ^ F) = F
   this statment can't be true because if it was then Gwendolin would be the liar.
   therefore since Gwendolin is a liar then Merrilaine must also be the liar because that means that,
   "but Merrilaine is not," is the lie.
