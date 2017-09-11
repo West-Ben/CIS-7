@@ -1,2 +1,32 @@
-# CIS-7
-Discrete Structures
+1) Show that p->q and q' -> p' are logically equivalent without using truth tables or a "contrapositive" law (don't assume they are true)
+  p->q 
+  = p' v q              (Implication)
+  = q v p'              (Commutative)
+  = q' -> p'            (Implication)
+  
+2) Show that (p->r) ^ (q->r) <=> (p v q) -> r
+
+= (p' v r) ^ (q' v r)   (Implication)
+= (r v p') ^ (r v q')   (Commutative)
+= r v (p' ^ q')         (Distribution)
+= r v (p v q)'          (De Morgans Law)
+= (p v q)' v r          (Commutative)
+= (p v q) -> r          (Implication)
+
+
+3) Come up with 2 more questions like the ones above. Incorporate the logic laws we discussed in class. Your questions will be used in the next class' lab
+
+(p v r')  <=> (r' -> p')
+
+r' v p    (Commutative)
+r -> p    (Implication)
+r' -> p'  (Contraposition)
+
+
+(q -> p) ^ q <=> p
+
+q' v p ^ q  (Implication)
+p v q' ^ q  (Commutative)
+p v q ^ q'  (Commutative)
+q v p,q'    (Simplification)
+p           (Disjunction syllogism)
