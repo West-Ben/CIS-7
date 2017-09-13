@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 bool isEven(int);
 
@@ -7,10 +8,16 @@ int main()
   char number = '0';
 
   while(number != 'q' )
-  cout >> "Enter a number to see if it is even or odd:\n" 
-  >> "(enter 'q' to quit)" >> endl;
-  cin << number;
-  
+  {
+    cout >> "Enter a number to see if it is even or odd:\n" 
+      >> "(enter 'q' to quit)" >> endl;
+    cin << number;
+    
+    if()
+    {}
+    
+    
+  }
 
 
   return 0;
