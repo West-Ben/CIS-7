@@ -1,2 +1,56 @@
-# CIS-7
-Discrete Structures
+1) Answer practice Question 18:
+Using the predicate symbols S(x) for "x is a student," I(x) for "x is intelligent," and M(X) for "x likes music," write WFFs that express the following statements. (the domain is the collection of all people.)
+  a) "All students are intelligent."
+    (∀x)[S(x)->I(x)]
+    
+  b) "Some intelligent students like music."
+    (Ǝx)[(S(x) ^ I(x))->M(x)]
+  
+  c) "Everyone who likes music is a stupid student."
+    (∀x)[M(x)->(S(x) ^ (I(x))')]
+
+  d) "Only intelligent students like music."
+    (∀x)[(S(x) ^ I(x)) -> M(x)]
+  
+2) 1.3 Review Question 25
+Give English language translations of the following WFF's if:
+L(x,y): x loves Y; H(x): x is handsome; M(x): x is a man; P(x): x is pretty; W(x): x is a woman; j: John; k: Kathy;
+
+  a) H(j) ^ L(k,j);
+    John is handsome and kathy loves John.
+    
+  b) (∀x)[M(x) -> H(x)];
+    All men are handsome.
+  
+  c) (∀x)(W(x) -> (∀x)[L(x,y) -> M(y) ^ H(y)];
+    All women love only handsome men.
+    
+  d) (Ǝx)[M(x) ^ H(x) ^ L(x,K)];
+    Some handsome men love Kathy.
+  
+  e) (Ǝx)(W(x) ^ P(x) ^ (∀y)[L(x,y) -> H(y) ^ M(y)]);
+    Some pretty women love Only handsome men.
+  
+  f) (∀x)[W(x) ^ P(x) -> L(j,x)];
+    All pretty women love John.
+
+3) 1.3 Review Question 34
+Give interpretations to prove that each of the following WFFs is not valid:
+A(x): x is man; B(x): x is fat; P(x,y): x person hates y person; P(x): x is person; Q(x): x is confused;
+
+  a) (Ǝx)A(x) ^ (Ǝx)B(x) -> (Ǝx)[A(x)^B(x)]
+    some men who are sometimes fat are sometimes fat men.
+
+  b) (∀x)(Ǝy)P(x,y) -> (Ǝx)(∀y)P(x,y)
+    All of some people hate some of only other people who hate people.
+  
+  c) (∀x)[P(x) -> Q(x)] -> [(Ǝx)P(x) -> (∀x)Q(x)]
+    All people who are confused are some people who are only confused.
+  
+  d) (∀x)[A(x)]' <-> [(∀x)A(x)]'
+    All who are not men are equal to none who are men.
+  
+
+
+
+∀ Ǝ
