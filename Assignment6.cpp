@@ -13,6 +13,14 @@ int main()
 	{
 		cout << "Enter a number to see if it is even or odd:\n" << endl;
 		cin >> number;
+		while(cin.fail())
+		{
+			cout << "Error" << endl;
+			cin.clear();
+			cin.ignore(256,'\n');
+			cin >> number;
+		}
+		
 
 		if (isEven(number))
 			cout << "the number\t" << number << " is even." << endl;
@@ -21,8 +29,6 @@ int main()
 
 		cout << "press enter to check another number or enter 'q' to quit" << endl;
 		cin >> repeat;
-
-		system("CLS");
 	}
 
 	return 0;
