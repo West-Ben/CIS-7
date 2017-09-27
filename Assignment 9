@@ -1,0 +1,15 @@
+2.2 Exercise 3:  
+1) Prove by induction that 1 + 5 + 9 + ... + (4n-3) = n(2n-1)
+  n = 1
+  (4-3 = 2-1) <=> (1 = 1) 
+  True
+
+2) Prove that for any positive integer number n, n^3 + 2n is divisible by 3			
+  2 + 4 + 6+ ... + (n^3 + 2n) = k; where k is divisible by 3
+  (6+4 = 10) '10' is not divisible by 3 
+
+3) Prove that for n >= 1, 9^n − 1 is divisible by 8 for all non-negative integers
+		Hint: 4^(3+1) = 4 * 4^3
+		Hint: If 9^n - 1 = 8m, then 9^n = 8m + 1  
+    
+    
