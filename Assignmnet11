@@ -1,1 +1,66 @@
 
+using System;
+using System.Collections.Generic;
+namespace Assinment11
+{    
+    public class GreatestCommonDenominator    
+    {        
+        private static string input = "";
+        
+        public static void Main(string[] args)
+        {            
+            int number1 = 0, number2 = 0;
+            
+            while (input != "q")            
+            {                
+                Console.WriteLine("Enter the first number then the second number to see the greatest common denominator(GCD): (or enter q to quit)");
+                number1 = InputCheck();
+                
+                Console.WriteLine("Enter second number: ");
+                number2 = InputCheck();
+                Console.WriteLine("The GCD is : " + GCD(number1, number2));
+            }
+         }
+        
+    private static int InputCheck()
+    {
+      int num;
+            
+      input = Console.ReadLine();
+      
+      if (input == "q") Environment.Exit(0);
+      
+      while (!int.TryParse(input, out num))
+      {
+        Console.WriteLine("Error, incorrect entry: ");
+        input = Console.ReadLine();
+      }
+            return num;
+    }
+          
+    private static int GCD(int n1, int n2)
+    {
+      int smallest, gcd = 1;
+      
+      if(n1 == 0)
+        return n2;
+      else if(n2 == 0)
+        return n1;
+      
+      if(n1 < n2)
+        smallest = n1;
+      else
+        smallest = n2;
+    
+      for(int i = 2; i <= smallest; i++ )
+      {
+        if(n1 % i == 0 && n2 % i == 0)
+        {
+          gcd = i;
+        }
+      }
+      return gcd;
+    }
+  }
+}
+          
