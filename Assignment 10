@@ -1,1 +1,69 @@
-# CIS-7
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;  
+
+namespace Assinment8 
+{  
+    public class Exhaustion 
+    {     
+        private static int[] primeNumbers = new int [100];
+        
+        private static string input = ""; 
+        
+        public static void Main(string[] args)
+        {       
+            int number = 0, guess = 0;            
+            
+            PrimeNumber();
+            while(input != "q")       
+            {                  
+                Console.WriteLine("Enter a number to see its prime factorization: (or enter q to quit)");         
+            
+                number = InputCheck();
+                            
+                    
+            }     
+        }    
+        
+        private static int InputCheck()    
+        {          
+            int num;            
+            
+            input = Console.ReadLine();            
+            if(input == "q") Environment.Exit(0);             
+            while(!int.TryParse(input,out num))       
+            {         
+                Console.WriteLine("Error, incorrect entry: ");         
+                input = Console.ReadLine();       
+            }             
+            return num;    
+        }         
+        
+        private static void PrimeNumber()     
+        {       
+            bool isPrime = true;             
+            for(int i = 2;i < primeNumbers.length; i++ )       
+            {         
+                for(int j = 2; j < i; j++)        
+                { 
+                    if((i % j) == 0) 
+                     }             
+                        isPrime = false;            
+                        break;           
+                     }          
+                    else             
+                        isPrime = true;         
+                }         
+                if(isPrime)         
+                {          
+                    primeNumbers[i] += i;           
+                    Console.WriteLine(i);       
+                }      
+            }     
+        }
+
+        
+    } 
+} 
