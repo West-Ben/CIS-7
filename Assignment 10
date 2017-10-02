@@ -1,69 +1,97 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;  
 
-namespace Assinment8 
-{  
-    public class Exhaustion 
-    {     
-        private static int[] primeNumbers = new int [100];
+namespace Assinment8
+{
+    public class Exhaustion
+    {
         
-        private static string input = ""; 
-        
+        private static List<int> primeList = new List<int>();
+
+        private static string input = "";
+
         public static void Main(string[] args)
-        {       
-            int number = 0, guess = 0;            
-            
-            PrimeNumber();
-            while(input != "q")       
-            {                  
-                Console.WriteLine("Enter a number to see its prime factorization: (or enter q to quit)");         
-            
+        {
+            int number = 0;
+
+            PrimeNumbers();
+            while (input != "q")
+            {
+                Console.WriteLine("Enter a number to see its prime factorization: (or enter q to quit)");
                 number = InputCheck();
-                            
-                    
-            }     
-        }    
-        
-        private static int InputCheck()    
-        {          
-            int num;            
-            
-            input = Console.ReadLine();            
-            if(input == "q") Environment.Exit(0);             
-            while(!int.TryParse(input,out num))       
-            {         
-                Console.WriteLine("Error, incorrect entry: ");         
-                input = Console.ReadLine();       
-            }             
-            return num;    
-        }         
-        
-        private static void PrimeNumber()     
-        {       
-            bool isPrime = true;             
-            for(int i = 2;i < primeNumbers.length; i++ )       
-            {         
-                for(int j = 2; j < i; j++)        
-                { 
-                    if((i % j) == 0) 
-                     }             
-                        isPrime = false;            
-                        break;           
-                     }          
-                    else             
-                        isPrime = true;         
-                }         
-                if(isPrime)         
-                {          
-                    primeNumbers[i] += i;           
-                    Console.WriteLine(i);       
-                }      
-            }     
+
+                PrimeFactors(number);
+            }
         }
 
-        
-    } 
-} 
+        private static int InputCheck()
+        {
+            int num;
+
+            input = Console.ReadLine();
+            if (input == "q") Environment.Exit(0);
+            while (!int.TryParse(input, out num))
+            {
+                Console.WriteLine("Error, incorrect entry: ");
+                input = Console.ReadLine();
+            }
+            return num;
+        }
+
+        private static void PrimeNumbers()
+        {
+            bool isPrime = true;
+            for (int i = 2; i < 100; i++)
+            {
+                for (int j = 2; j < i; j++)
+                {
+                    if ((i % j) == 0)
+                    {
+                         isPrime = false;
+                         break;
+                     }
+                    else             
+                        isPrime = true;
+                }     
+                if(isPrime)         
+                {          
+                    primeList.Add(i);           
+                    Console.WriteLine(i);       
+                }
+            }   
+        }
+
+        private static void PrimeFactors(int number)
+        {
+            int count = 0, result = number;
+            bool isPrime = true;
+
+            while(isPrime)
+            {
+
+                if (++count > (primeList.Count - 1))
+                {
+                    count = 0;
+                }
+
+                if (result % primeList[count] == 0)
+                {
+                    Console.WriteLine("prime: " + primeList[count]);
+                    result = result / primeList[count];
+                    Console.WriteLine("result: " + result);
+                    count = 0;
+                }
+
+                for (int j = 0; j < primeList.Count; j++)
+                {
+                    if (result == primeList[j] && result != number)
+                    {
+                        isPrime = false;
+                    }
+                }
+
+            }
+        }
+    }
+}
