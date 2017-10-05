@@ -1,1 +1,136 @@
-# CIS-7
+using System;
+using System.Diagnostics;
+using System.Collections.Generic;
+namespace Assinment12
+{    
+    public class GreatestCommonDenominator    
+    {  
+      
+      public static string input = "";
+      
+      public static void Main(string[] args)
+      {            
+          int number1 = 0, number2 = 0;
+          TimeSpan timespan;
+          long milliseconds;
+          Stopwatch stopwatch = new Stopwatch();
+          string elapsedTime;
+        
+          
+          while (input != "q")            
+          {                
+              Console.WriteLine("Enter '1' for Brute GCD or '2' for Euclidean GCD: (or enter q to quit)");
+              number1 = InputCheck();
+              
+              switch(number1)
+              {
+                case 1:
+                
+                  Console.WriteLine("Enter the first number then the second number to see the Brute GCD: (or enter q to quit)");
+                  number1 = InputCheck();
+                  
+                  Console.WriteLine("Enter second number: ");
+                  number2 = InputCheck();
+                  
+                  stopwatch.Restart();
+                  Console.WriteLine("The GCD is : " + GCDBrute(number1, number2));
+                  stopwatch.Stop();
+                  
+                  timespan = stopwatch.Elapsed;
+                  milliseconds = stopwatch.ElapsedMilliseconds * 10000;
+                      
+                  elapsedTime = String.Format("{0:00}",timespan.Milliseconds);
+                      
+                  Console.WriteLine("\nRunTime " + elapsedTime);
+                  
+                  Console.WriteLine("\nRunTime long " + (milliseconds));
+
+                  break;
+                  
+                case 2:
+                  Console.WriteLine("Enter the first number then the second number to see the Euclidean GCD: (or enter q to quit)");
+                  number1 = InputCheck();
+                  
+                  Console.WriteLine("Enter second number: ");
+                  number2 = InputCheck();
+                  
+                  if(number1 > number2)
+                  {
+                    number1 += number2;
+                    number2 = number1 - number2;
+                    number1 = number1 - number2;
+                  }
+                  
+                  stopwatch.Start();
+                  Console.WriteLine("The GCD is : " + GCD(number1, number2));
+                  stopwatch.Stop();
+                  
+                  timespan = stopwatch.Elapsed;
+                  milliseconds = stopwatch.ElapsedMilliseconds * 10000;
+                      
+                  elapsedTime = String.Format("{0:00}",timespan.Milliseconds);
+                      
+                  Console.WriteLine("\nRunTime " + elapsedTime);
+                  
+                  Console.WriteLine("\nRunTime long " + (milliseconds));
+                
+                  break;
+                  
+                default:
+                  number1 = 0;
+                  Console.WriteLine("Error: incorrect entry.");
+                  break;
+              }
+              
+              
+                number1 = 0;
+          }
+      }
+          
+      private static int InputCheck()
+      {
+        int num;
+              
+        input = Console.ReadLine();
+        
+        if (input == "q") Environment.Exit(0);
+        
+        while (!int.TryParse(input, out num))
+        {
+          Console.WriteLine("Error, incorrect entry: ");
+          input = Console.ReadLine();
+        }
+              return num;
+      }
+          
+      private static int GCDBrute(int n1, int n2)
+      {
+        int smallest, gcd = 1;
+        
+        if(n1 == 0)
+          return n2;
+        else if(n2 == 0)
+          return n1;
+        
+        if(n1 < n2)
+          smallest = n1;
+        else
+          smallest = n2;
+      
+        for(int i = 2; i <= smallest; i++ )
+        {
+          if(n1 % i == 0 && n2 % i == 0)
+          {
+            gcd = i;
+          }
+        }
+        return gcd;
+      }
+      
+      private static int GCD(int n1, int n2)
+      {
+        if(n2 == 0) return n1;
+        return GCD(n2, n1 % n2);
+      }
+  }
+}
