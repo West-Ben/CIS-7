@@ -1,2 +1,154 @@
+using System;
+using System.Collections.Generic;
+namespace Assinment13
+{
+    public class Tower
+    {
+        public string name;
+        public Stack<int> discs = new Stack<int>();
 
-using System;using System.Collections.Generic;namespace Assinment11{        public class GreatestCommonDenominator        {                    private static string input = "";            public static void Main(string[] args)      {                      int n = 0;                    List<int> Start = new List<int>();          List<int> End = new List<int>();          List<int> Aux = new List<int>();                    while (input != "q")                      {                              Console.WriteLine("Enter the number of disk for the Tower of Hanoi: (or enter q to quit)");              n = InputCheck();                            fillStart(n,ref Start);              printTowers(ref Start,ref End,ref Aux);          }       }              private static int InputCheck()      {        int num;                      input = Console.ReadLine();                if (input == "q") Environment.Exit(0);                while (!int.TryParse(input, out num))        {          Console.WriteLine("Error, incorrect entry: ");          input = Console.ReadLine();        }              return num;      }                private static void fillStart(int n,ref List<int> Start)      {        for(int i = 0; i < n; i++)        {          Start.Add(i + 1);        }      }                private static void printTowers(ref List<int> Start, ref List<int> End, ref List<int> Aux)      {                Console.Write("\nStart: ");        for(int i = 0; i < Start.Count; i++)        {          Console.Write(" " + Start[i] + ", " );        }                          Console.Write("\nEnd: ");        for(int i = 0; i < End.Count; i++)        {          Console.Write(" " + End[i] + ", " );        }                          Console.Write("\nAux: ");        for(int i = 0; i < Aux.Count; i++)        {          Console.Write(" " + Aux[i] + ", " );        }        Console.WriteLine("\n");      }            private static void Move(n, ref List<int> Start, ref List<int> End, ref List<int> Aux )      {        if(n > 0)        {          Move(n-1,ref Start, ref Aux, ref End);          //printTowers(ref Start,ref End,ref Aux);          Console.WriteLine("Start to End");          Move(n-1,ref Aux, ref End, ref Start);        }      }  }}          
+        public Tower(string name)
+        {
+            this.name = name;
+        }
+    }
+
+
+    public class TowerOfHanoi
+    {
+        private static string input = "";
+
+        private static Stack<int> A = new Stack<int>();
+        private static Stack<int> B = new Stack<int>();
+        private static Stack<int> C = new Stack<int>();
+
+        public static void Main(string[] args)
+        {
+            int n = 0;
+
+            Tower Start = new Tower("A");
+            Tower End = new Tower("B");
+            Tower Aux = new Tower("C");
+
+            while (input != "q")
+            {
+                Console.WriteLine("Enter the number of disk for the Tower of Hanoi: (or enter q to quit)");
+                n = InputCheck();
+
+               // MoveI(n, 1, 2, 3);
+                fillStart(n, ref Start);
+                printTowers(ref Start, ref End, ref Aux);
+                Move(n,ref Start,ref End,ref Aux);
+            }
+        }
+
+        private static int InputCheck()
+        {
+            int num;
+
+            input = Console.ReadLine();
+
+            if (input == "q") Environment.Exit(0);
+
+            while (!int.TryParse(input, out num))
+            {
+                Console.WriteLine("Error, incorrect entry: ");
+                input = Console.ReadLine();
+            }
+
+            return num;
+        }
+
+        private static void fillStart(int n, ref Tower Start)
+        {
+            for (int i = n; i > 0; i--)
+            {
+                Start.discs.Push(i);
+            }
+        }
+
+        private static void printTowers(ref Tower Start, ref Tower End, ref Tower Aux)
+        {
+            
+
+            Console.Write("\n{0}: ", Start.name);
+
+            for (int i = 0; i < Start.discs.Count; i++)
+            {
+                Console.Write(" " + Start.discs.Peek() + ", ");
+                A.Push(Start.discs.Pop());
+            }
+
+            Console.Write("\n{0}: ", End.name);
+
+            for (int i = 0; i < End.discs.Count; i++)
+            {
+                Console.Write(" " + End.discs.Peek() + ", ");
+                B.Push(End.discs.Pop());
+            }
+
+            Console.Write("\n{0}: ", Aux.name);
+
+            for (int i = 0; i < Aux.discs.Count; i++)
+            {
+                Console.Write(" " + Aux.discs.Peek() + ", ");
+                C.Push(Aux.discs.Pop());
+            }
+            Refill(ref Start, ref End, ref Aux);
+            Console.WriteLine("\n");
+        }
+
+        private static void Refill(ref Tower Start, ref Tower End, ref Tower Aux)
+        {
+            for (int i = 0; i < A.Count; i++)
+            {
+                Start.discs.Push(A.Pop());
+            }
+            
+
+            for (int i = 0; i < B.Count; i++)
+            {
+                End.discs.Push(B.Pop());
+            }
+            
+
+            for (int i = 0; i < C.Count; i++)
+            {
+                Aux.discs.Push(C.Pop());
+            }
+        }
+
+        private static void Move(int n, ref Tower Start, ref Tower End, ref Tower Aux)
+        {
+            int disc;
+
+            if (n > 0)
+            {
+                Move(n - 1, ref Start, ref Aux, ref End);
+                disc = Start.discs.Pop();
+                End.discs.Push(disc);
+                //printTowers(ref Start,ref End,ref Aux);
+                Console.WriteLine("move disc {0} from tower {1} to tower {2}", disc,Start.name,End.name );
+                Console.WriteLine("n = {0}", n);
+
+                printTowers(ref Start,ref End,ref Aux);
+                
+
+                Move(n - 1,ref Aux, ref End, ref Start);
+            }
+        }
+
+        private static void MoveI(int n, int a, int b, int c)
+        {
+            if (n > 0)
+            {
+                MoveI(n - 1, a, c, b);
+
+                //printTowers(ref Start,ref End,ref Aux);
+                Console.WriteLine("move disc {0} from tower {1} to tower {2}", n, a, b);
+
+                MoveI(n - 1, c, b, a);
+            }
+        }
+    }
+}          
