@@ -1,109 +1,123 @@
 using System;
 using System.Collections.Generic;
+
 namespace Assinment13
-{
-    public class Tower
-    {
+{    
+    public class Tower    
+    {        
         public string name;
-        public List<int> discs = new List<int>();
-
-        public Tower(string name)
-        {
-            this.name = name;
-        }
-    }
-    
-    public class TowerOfHanoi
-    {
-        private static string input = "";
+        public List<int> disks = new List<int>();
+        
+        public Tower(string name)        
+        {            
+            this.name = name;        
+        }    
+     }        
+     
+     public class TowerOfHanoi    
+     {        
+        private static string input = "";                
         
-        public static void Main(string[] args)
-        {
+        public static void Main(string[] args)        
+        {            
             int n = 0;
-
-            Tower Start = new Tower("A");
-            Tower End = new Tower("B");
+            
+            Tower Start = new Tower("A");            
+            Tower End = new Tower("B");            
             Tower Aux = new Tower("C");
-
-            while (input != "q")
-            {
-                Console.WriteLine("Enter the number of disk for the Tower of Hanoi: (or enter q to quit)");
-                n = InputCheck();
+            
+            while (input != "q")            
+            {                
+                Console.WriteLine("Enter the number of disk/s for the Tower of Hanoi: (or enter q to quit)");                
+                n = InputCheck();                                
+                fillStart(n, ref Start);                
+                PrintTowers(ref Start, ref End, ref Aux);
                 
-                fillStart(n, ref Start);
-                printTowers(ref Start, ref End, ref Aux);
+                Console.ReadLine();
+                Console.Clear();
+                
                 Move(n,ref Start,ref End,ref Aux);
+                
+                Start.disks.Clear();
+                End.disks.Clear();
+                Aux.disks.Clear();
             }
         }
-
+        
         private static int InputCheck()
         {
             int num;
-
-            input = Console.ReadLine();
-
+            input = Console.ReadLine();
+            
             if (input == "q") Environment.Exit(0);
-
+            
             while (!int.TryParse(input, out num))
             {
                 Console.WriteLine("Error, incorrect entry: ");
                 input = Console.ReadLine();
             }
-
+            
             return num;
         }
-
+        
         private static void fillStart(int n, ref Tower Start)
         {
             for (int i = n; i > 0; i--)
             {
-                Start.discs.Add(i);
+                Start.disks.Add(i);
             }
         }
-
-        private static void printTowers(ref Tower Start, ref Tower End, ref Tower Aux)
-        {
-            
-
-            Console.Write("\n{0}: ", Start.name);
-
-            for (int i = 0; i < Start.discs.Count; i++)
-            {
-                Console.Write(" " + Start.discs[i] + ", ");
-            }
-
-            Console.Write("\n{0}: ", End.name);
-
-            for (int i = 0; i < End.discs.Count; i++)
-            {
-                Console.Write(" " + End.discs[i] + ", ");
-            }
-
-            Console.Write("\n{0}: ", Aux.name);
-
-            for (int i = 0; i < Aux.discs.Count; i++)
-            {
-                Console.Write(" " + Aux.discs[i] + ", ");
-            }
-
-            Console.WriteLine("\n");
-        }
-
+        
         private static void Move(int n, ref Tower Start, ref Tower End, ref Tower Aux)
         {
             if (n > 0)
             {
                 Move(n - 1, ref Start, ref Aux, ref End);
-                Start.discs.RemoveAt((Start.discs.Count - 1));
-                End.discs.Add(n);
+                Start.disks.RemoveAt((Start.disks.Count - 1));
+                End.disks.Add(n);
+                Console.Write("\n");
                 Console.WriteLine("move disc {0} from tower {1} to tower {2}", n,Start.name,End.name );
-                Console.WriteLine("n = {0}", n);
-
-                printTowers(ref Start,ref End,ref Aux);
                 
-
+                PrintTowers(ref Start,ref End,ref Aux);
+                
+                Console.ReadLine();
+                Console.Clear();
                 Move(n - 1,ref Aux, ref End, ref Start);
             }
         }
+        
+        private static void PrintTowers(ref Tower T1, ref Tower T2, ref Tower T3)
+        {
+            if(T1.name == "A")
+                Print(ref T1);
+            else if(T2.name == "A")
+                Print(ref T2);
+            else
+                Print(ref T3);
+            
+            if(T1.name == "B")
+                Print(ref T1);  
+            else if(T2.name == "B")
+                Print(ref T2);
+            else
+                Print(ref T3);
+                
+            if(T1.name == "C")
+                Print(ref T1);
+            else if(T2.name == "C")
+                Print(ref T2);
+            else
+                Print(ref T3);
+        }
+        
+        private static void Print(ref Tower tower)
+        {            
+            Console.Write("\n{0}: ", tower.name);
+            
+            for (int i = 0; i < tower.disks.Count; i++)
+            {
+                Console.Write(" " + tower.disks[i] + ", ");
+            }
+        }   
     }
-}          
+}          
