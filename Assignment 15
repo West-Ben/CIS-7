@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+namespace Assinment15
+{
+  public class Sets
+  {
+    private static List<string> A = new List<string>;
+    private static List<string> B = new List<string>;
+    private static string input = "";
+    
+    public static void Main(string[] args)
+    {
+      int number = 0;
+      
+      while (input != "q")
+      {
+        PrintSet(A);
+        PrintSet(B);
+        
+        Console.WriteLine("Enter a number to see its prime factorization: (or enter q to quit)");
+        number = InputCheck();
+        if(number == 1 || number == 2)
+        {
+          Console.Clear();
+          AddToList();
+        }
+          switch(number)
+          {
+            case 3:
+              Console.Clear();
+              break;
+            case 4:
+              Console.Clear();
+              break;
+            case 5:
+              Console.Clear();
+              break;
+            case 6:
+              Console.Clear();
+              break;
+            case 7:
+              Console.Clear();
+              break;
+            case 8:
+              Console.Clear();
+              break;
+            case 9: 
+              Console.Clear();
+              break;
+            }
+            
+            Console.Clear();
+          }
+        }
+        
+        private static int InputCheck()
+        {
+          int num;
+            input = Console.ReadLine();            if (input == "q") Environment.Exit(0);            while (!int.TryParse(input, out num))            {                Console.WriteLine("Error, incorrect entry: ");                input = Console.ReadLine();            }            return num;        }                public static void PrintSet(List<string> C)        {                    string listname = "";          if(C == A) listname = "A";          else listname = "B";                    Console.WriteLine("List {0}:{", listname);          for(int i = 0; i < C.Count; i++)          {            Console.Write(C[i] + ", ")          }          Console.WriteLine("}");        }                public static void AddToList()        {          switch(input)          {            case "1":              Console.WriteLine("Enter item to add to list A:");              A.Add(Console.ReadLine);            break;            case "2":              Console.WriteLine("Enter item to add to list B:");              B.Add(Console.ReadLine);            break;          }        }                public static void AUnionB()        {          Console.WriteLine("Set A∪B:{");                    for(int i = 0; i < A.Count; i++)          {            for(int j = 0; j < B.Count; j++)            {              if(A[i] == B[j])              else              {                Console.Write(A[i] + ", ");              }            }          }                    for(int i = 0; i < B.Count; i++)          {            for(int j = 0; j < A.Count; j++)            {              if(B[i] == A[j])              else              {                Console.Write(B[i] + ", ");              }            }          }                    Console.WriteLine("}");        }               public static void AIntersectsB()       {          Console.WriteLine("Set A∩B:{");                    for(int i = 0; i < A.Count; i++)          {            for(int j = 0; j < B.Count; j++)            {              if(A[i] == B[j])              {                Console.Write(A[i] + ", ");              }            }          }          Console.WriteLine("}");       }              public static void ADifferenceB()       {          Console.WriteLine("Set A-B:{");                    for(int i = 0; i < A.Count; i++)          {            for(int j = 0; j < B.Count; j++)            {              if(A[i] == B[j])              else              {                Console.Write(A[i] + ", ");              }            }          }                    Console.WriteLine("}");       }              public static void BDifferenceA()       {          Console.WriteLine("Set B-A:{");                    for(int i = 0; i < B.Count; i++)          {            for(int j = 0; j < A.Count; j++)            {              if(B[i] == A[j])              else              {                Console.Write(B[i] + ", ");              }            }          }                    Console.WriteLine("}");       }              public static void PowerSetA()       {          Console.WriteLine("Power set A:{");                    for(int i = 0; i < A.Count; i++)          {                        for(int j = 0; j < A.Count; j++)            {              if(B[i] == A[j])              else              {                Console.Write(B[i] + ", ");              }            }          }                    Console.WriteLine("}");       }              public static void PowerSetB()       {          Console.WriteLine("Power set B:{");                    for(int i = 0; i < B.Count; i++)          {            for(int j = 0; j < A.Count; j++)            {              if(B[i] == A[j])              else              {                Console.Write(B[i] + ", ");              }            }          }                    Console.WriteLine("}");       }    } }
+
+
+
