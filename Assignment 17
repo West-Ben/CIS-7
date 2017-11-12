@@ -2,195 +2,239 @@ using System;
 using System.Collections.Generic;
 namespace Assinment17
 {
-  public class Graph
-  {
-    private class Edge
+    public class Graph
     {
-      public Vertex Begins {get; set;}
-      public Vertex Ends {get; set;}
-    }
-    
-    private class Vertex
-    {
-      public char Name {get; set;}
-      public List<Edge> Degrees = new List<Edge>();
-    }
-    
-    private static List<Vertex> Verticies = new List<Vertex>();
-    private static List<Edge> Edges = new List<Edge>();
-    
-    private static char VertexName = 'a';
-    private static string input = "";
-    
-    public static void Main(string[] args)
-    {
-      int number = 0;
-      
-      while (input != "q")
-      {
-        Display();
-        
-        Console.WriteLine("1) Add Vertex\n2) Add Edge\n (or enter q to quit)");
-        
-        number = InputCheck();
-        
-        switch(number)
+        private class Edge
         {
-          case 1:
-            AddVertex();
-            break;
-          case 2:
-            AddEdge();
-            break;
-          default:
-            break;
+            public Vertex Begins { get; set; }
+            public Vertex Ends { get; set; }
         }
-      }
-    }
-    
-    private static int InputCheck()
-    {
-      int num;
-                 
-      input = Console.ReadLine();
-      if (input == "q") Environment.Exit(0);
-      
-      while (!int.TryParse(input, out num))
-      {
-        Console.WriteLine("Error, incorrect entry: ");
-        input = Console.ReadLine();
-        if (input == "q") Environment.Exit(0);
-      }
-      return num;
-    }
-    
-    private static void AddVertex()
-    {
-      Verticies.Add(new Vertex {Name = VertexName++});
-    }
-    
-    private static void AddEdge()
-    {
-      if(Verticies.Count == 0)
-      {
-        Console.WriteLine("No verticies to connect.");
-        return;
-      }
-      
-      input = "";
-      
-      Console.WriteLine("Enter the first vertex to connect to: (or enter q to quit)");
-      
-      Edge edge = new Edge();
-      
-      while (input.Length != 1)
-      {
-        input = Console.ReadLine();
-        if (input == "q") Environment.Exit(0);
-        
-        char name = input[0];
-        Console.WriteLine("name = " + name);
-        
-        for(int i = 0; i < Verticies.Count; i++)
-        {
-          Console.WriteLine(Verticies[i].Name);
-          if (Verticies[i].Name == name)
-          {
-            Vertex vertex = Verticies[i]; 
-            edge.Begins = vertex;
-            vertex.Degrees.Add(edge); 
-          }
-          else 
-          {
-            input = ""; 
-            Console.WriteLine("Error, vertex doesn't exists. Enter a vertex");  
-          }
-        }
-      }
-      
-      input = "";   
-      Console.WriteLine("Enter the second vertex to connect to: (or enter q to quit)");  
-      
-      while (input.Length != 1)
-      {
-        input = Console.ReadLine();
-        if (input == "q") Environment.Exit(0);
-        
-        char name = input[0]; 
-        for(int i = 0; i < Verticies.Count; i++) 
-        {
-          if (Verticies[i].Name == name)  
-          {
-            Vertex vertex = Verticies[i];
-            edge.Begins = vertex; 
-            vertex.Degrees.Add(edge); 
-          }
-          else
-          {
-            input = "";
-            Console.WriteLine("Error, vertex doesn't exists. Enter a vertex");
-          }
-        }
-      }
-      
-      Edges.Add(edge);
-    }
-    
-    private static void Display()
-    {
-      Console.Write("Verticies: ");
-      
-      for(int i = 0; i < Verticies.Count; i++)
-      {
-        Console.Write(Verticies[i].Name + " ");
-      }
-      
-      Console.WriteLine();
-      
-      int high = 0;
-      
-      Console.Write("Vertex with Highest Degree: ");  
-      
-      for(int i = 0; i < Verticies.Count; i++)
-      
-      {
-        if(Verticies[i].Degrees.Count > high)  
-        {
-      
-          high = Verticies[i].Degrees.Count; 
-        }
-      }
-      Console.Write(high);   
-      Console.WriteLine();
-    
-      Console.Write("Isolated Verticies:"); 
-      for(int i = 0; i < Verticies.Count; i++)
-      {
-        if(Verticies[i].Degrees.Count == 0) 
-        {
-          Console.Write(Verticies[i].Name +" ");  
-        }
-      }
-      
-      Console.WriteLine();
-      
-      int loops = 0;
-      
-      Console.WriteLine("Number of Loops:");
-      for(int i = 0; i < Edges.Count; i++) 
-      {
-        if(Edges[i].Begins == Edges[i].Ends)
-        {
-          loops++;  
-        }
-      }
-      
-      Console.Write(loops); 
-      Console.WriteLine(); 
-      
-      Console.WriteLine("Graph Connected:"); 
-      Console.WriteLine("Graph Complete:");
-    }
-  }
-}
 
+        private class Vertex
+        {
+            public char Name { get; set; }
+            public List<Edge> Degrees = new List<Edge>();
+        }
+
+        private static List<Vertex> Verticies = new List<Vertex>();
+        private static List<Edge> Edges = new List<Edge>();
+
+        private static char VertexName = 'a';
+        private static string input = "";
+
+        public static void Main(string[] args)
+        {
+            int number = 0;
+
+            while (input != "q")
+            {
+                Display();
+
+                Console.WriteLine("1) Add Vertex\n2) Add Edge\n (or enter q to quit)");
+
+                number = InputCheck();
+
+                switch (number)
+                {
+                    case 1:
+                        AddVertex();
+                        break;
+                    case 2:
+                        AddEdge();
+                        break;
+                    default:
+                        break;
+                }
+                Console.Clear();
+            }
+        }
+
+        private static int InputCheck()
+        {
+            int num;
+
+            input = Console.ReadLine();
+            if (input == "q") Environment.Exit(0);
+
+            while (!int.TryParse(input, out num))
+            {
+                Console.WriteLine("Error, incorrect entry: ");
+                input = Console.ReadLine();
+                if (input == "q") Environment.Exit(0);
+            }
+            return num;
+        }
+
+        private static void AddVertex()
+        {
+            Verticies.Add(new Vertex { Name = VertexName++ });
+        }
+
+        private static void AddEdge()
+        {
+            if (Verticies.Count == 0)
+            {
+                Console.WriteLine("No verticies to connect.");
+                return;
+            }
+
+            input = "";
+            Console.WriteLine("Enter the first vertex to connect to: (or enter q to quit)");
+
+            Edge edge = new Edge();
+
+            while (input.Length != 1)
+            {
+                input = Console.ReadLine();
+                if (input == "q") Environment.Exit(0);
+
+                char name = input[0];
+
+                if (Verticies.Exists(x => x.Name == name ))
+                {
+                    Vertex vertex = Verticies.Find(x => x.Name == name );
+                    edge.Begins = vertex;
+                    vertex.Degrees.Add(edge);
+                }
+                else
+                {
+                    input = "";
+                    Console.WriteLine("Error, vertex doesn't exists. Enter a vertex");
+                }
+            }
+
+            input = "";
+            Console.WriteLine("Enter the second vertex to connect to: (or enter q to quit)");
+
+            while (input.Length != 1)
+            {
+                input = Console.ReadLine();
+                if (input == "q") Environment.Exit(0);
+
+                char name = input[0];
+
+                if (Verticies.Exists(x => x.Name == name))
+                {
+                    Vertex vertex = Verticies.Find(x => x.Name == name);
+                    edge.Ends = vertex;
+                    vertex.Degrees.Add(edge);
+                }
+                else
+                {
+                    input = "";
+                    Console.WriteLine("Error, vertex doesn't exists. Enter a vertex");
+                }
+            }
+
+            Edges.Add(edge);
+        }
+
+        private static void Display()
+        {
+            Console.Write("Verticies: ");
+            bool hasIsolated = false;
+
+            for (int i = 0; i < Verticies.Count; i++)
+            {
+                Console.Write(Verticies[i].Name + " ");
+            }
+
+            Console.WriteLine();
+
+            int high = 0;
+
+            Console.Write("Vertex with Highest Degree: ");
+
+            for (int i = 0; i < Verticies.Count; i++)
+            {
+                if (Verticies[i].Degrees.Count > high)
+                {
+
+                    high = Verticies[i].Degrees.Count;
+                }
+            }
+
+            Console.Write(high);
+            Console.WriteLine();
+
+            Console.Write("Isolated Verticies:");
+            for (int i = 0; i < Verticies.Count; i++)
+            {
+                if (Verticies[i].Degrees.Count == 0)
+                {
+                    Console.Write(Verticies[i].Name + " ");
+                    hasIsolated = true;
+                }
+            }
+
+            Console.WriteLine();
+
+            int loops = 0;
+
+            Console.WriteLine("Number of Loops:");
+            for (int i = 0; i < Edges.Count; i++)
+            {
+                if (Edges[i].Begins == Edges[i].Ends)
+                {
+                    loops++;
+                }
+            }
+
+            Console.Write(loops);
+            Console.WriteLine();
+
+            Console.Write("Graph Connected:");
+            if (!hasIsolated)
+            {
+                Console.WriteLine(" True");
+            }
+            else
+            {
+                Console.WriteLine(" False");
+            }
+
+            Console.Write("Graph Complete:");
+
+            int numberConnected = 0;
+            List<bool> list = new List<bool>();
+            for (int i = 0; i < Verticies.Count; i++)
+            {
+                for (int j = 0; j < Edges.Count; j++)
+                {
+                    if ((Edges[j].Begins == Verticies[i] && Edges[j].Ends != Verticies[i]) || (Edges[j].Begins != Verticies[i] && Edges[j].Ends == Verticies[i]))
+                    {
+                        numberConnected++;
+                    }
+                }
+
+                if (numberConnected >= (Verticies.Count - 1))
+                    list.Add(true);
+                else
+                    list.Add(false);
+
+                numberConnected = 0;
+            }
+
+            if (CheckComplete(list))
+            {
+                Console.WriteLine(" True");
+            }
+            else
+            {
+                Console.WriteLine(" False");
+            }
+        }
+
+        private static bool CheckComplete(List<bool>list)
+        {
+            for (int i = 0; i < Verticies.Count; i++)
+            {
+                if (!list[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+}
