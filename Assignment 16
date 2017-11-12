@@ -1,0 +1,85 @@
+ - [1]Sketch a graph having nodes {1,2,3,4,5}, edges {a,b,c,d,e,f} and functions:
+	- g(a) = (1,2)
+	- g(b) = (1,3)
+	- g(c) = (3,4)
+	- g(d) = (3,4)
+	- g(e) = (4,5)
+	- g(f) = (5,5)
+            
+            /f\
+            \ / 
+  1--a--2   5
+  |        /
+  b       e
+  |      /
+  3--c--4
+   \_d_/
+   
+    
+- [2] Using the graph from question #1, answer the following:		
+	- Find two nodes that are not adjacent
+    notAdjacent = (1 && 4)
+  
+	- Find a node adjacent to itself
+    adjacentToItself = 5
+  
+	- Find a loop
+    loop = f
+  
+	- Find two parallel edges
+    edges = (c && d)
+  
+	- Find the degree of node 3
+    degree = 3
+    
+	- Find a path of length 5
+    path.Length = {(2,a,1),(1,b,3),(3,c,4),(4,e,5)(5,f,5)}
+  
+	- Find a cycle
+   cycle = {(3,c,4),(4,d,3)}
+  
+	- Is this graph complete? 
+    complete = false;
+  
+	- Is this graph connected?
+    connected = true;
+  
+- [3] Draw a connected graph with:
+	- 1 Vertex
+    
+      (1)
+    
+    
+	- 2 Vertices
+  
+      (2)---(3)
+  
+	- 3 Vertices
+  
+     (1)
+    /   \
+  (2)---(3)
+  
+	- 4 Vertices
+  
+  (1)----(2)
+   | \  / |
+   |  \/  |
+   |  /\  |
+   | /  \ |
+  (3)----(4)
+   
+   
+	- 5 Vertices
+  
+    (1)---------(2)
+     |           | 
+    (3)         (4)
+      \         /
+       \       /
+        \     /
+         \   /
+          (5)
+  
+  
+  
