@@ -1,0 +1,72 @@
+(1)
+  g(a) = (1,2)
+  g(b) = (1,3)
+  g(c) = (2,3)
+  g(d) = (2,2)
+  
+(2)
+  a)  Yes
+  b)  No
+  c)  Yes  
+  d)  {(3,a5,5),(5,a6,6)} {(3,a3,4),(4,a4,5),(5,a6,6))}
+  e)  {(3,a5,5),(5,a4,4),(4,a3,3)}
+  f)  a5
+  g)  a2
+
+(5) 
+  a)      (1)
+         /   \
+        /     \
+      (2)_____(3)
+  
+      
+  b)  / \
+      \ /
+       (1)----(2)
+        | \  / | \
+        |  \/  |  |
+        |  /\  |  |
+        | /  \ | /
+       (3)----(4)   
+   
+   c)
+       (1)----(2) 
+        |      |
+        |      |
+        |      |
+        |      |
+       (3)----(4)   
+   
+(9)
+  a)  The IT and Marketing departments are not acquainted
+  
+  b)  Carl anf Fletcher are not aquanted and SiuYun is aquanted with Carl.
+  
+  c)  the degree of seperation is 2
+  
+(13)  'b' is not isomorphic because all its nodes a degree of 2
+where as the other graphs have 2 nodes of degree 2 and one node of degree 0
+  
+(30)  4-12-2 = -r => -4+12+2 = (r = 10)
+
+(49)  A graph who's nodes all have arcs that connect to themselves, the matrix shows 1s that are in a straight diagonal direction
+(50)  A graph that has nodes that are all isolated, the matrix will have all 0s
+(51)  The graph will have nodes that are all connected to each other node but not to themselves, the Matrix will look like all 1s
+      except for a straight diagonal of 0s
+      
+(65)           (1)
+                | \    
+                |  \
+          (4)   |  (5)
+           | \  | /  |
+           |   \|/   |
+           |   /|\   |
+           | /  |  \ |       
+          (2)   |   (3)
+            \   |  /
+             \  | /
+               (6)
+
+(71) The adjacency matrix will for graph G' will have 0s where there are 1s in graph G,
+then G' will have 1s where there were 0s in graph G
+
