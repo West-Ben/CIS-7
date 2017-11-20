@@ -1,0 +1,241 @@
+using System;
+using System.Collections.Generic;
+
+namespace Assinment19
+{
+    public class BinaryTree
+    {
+        public class Node
+        {
+            public string Name { get; set; }
+            public Node LeftNode { get; set; }
+            public Node RightNode { get; set; }
+        }
+
+        private static string input = "";
+        private static List<Node> listOfNodes;
+
+        public static void Main(string[] args)
+        {
+            int number = 0;
+            listOfNodes = new List<Node>();
+
+            while (input != "q")
+            {
+                Display();
+
+                Console.WriteLine("1) Add Node\n2) Add left child to node\n3) Add right child to node\n(or enter q to quit)");
+                number = InputCheck();
+
+                switch (number)
+                {
+                    case 1:
+                        AddNode();
+                        break;
+                    case 2:
+                        AddChildNode(number);
+                        break;
+                    case 3:
+                        AddChildNode(number);
+                        break;
+                    default:
+                        break;
+                }
+
+
+                Console.Clear();
+            }
+        }
+
+        private static int InputCheck()
+        {
+            int num;
+
+            input = Console.ReadLine();
+            if (input == "q") Environment.Exit(0);
+
+            while (!int.TryParse(input, out num))
+            {
+                Console.WriteLine("Error, incorrect entry: ");
+                input = Console.ReadLine();
+                if (input == "q") Environment.Exit(0);
+            }
+
+            return num;
+        }
+
+        private static void AddNode()
+        {
+            Console.Write("Name your node: ");
+            input = Console.ReadLine();
+
+            Node node = new Node()
+            {
+                Name = input
+            };
+
+            listOfNodes.Add(node);
+        }
+
+        private static void AddChildNode(int LorR)
+        {
+            Console.Write("Choose node to be the child: ");
+            input = Console.ReadLine();
+
+            Node nodeChild = listOfNodes.Find(x => x.Name == input);
+
+            Console.WriteLine("\n");
+
+            Console.Write("Choose node to be the parent: ");
+            input = Console.ReadLine();
+
+            Node nodeParent = listOfNodes.Find(x => x.Name == input);
+
+            switch (LorR)
+            {
+                case 2:
+                    nodeParent.LeftNode = nodeChild;
+                    break;
+                case 3:
+                    nodeParent.RightNode = nodeChild;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private static void Display()
+        {
+            //All nodes
+            Console.Write("Nodes in tree: ");
+
+            for (int i = 0; i < listOfNodes.Count; i++)
+            {
+                Console.Write(listOfNodes[i].Name + " ");
+            }
+
+            Console.WriteLine("\n");
+
+            //Depth of tree
+            Console.Write("Depth of tree: ");
+            if (listOfNodes.Count != 0)
+            {
+                int depth = DepthofTree(listOfNodes[0], 1);
+                Console.Write(depth);
+            }
+
+            Console.WriteLine("\n");
+
+            //is tree full?
+
+            //is tree complete?
+
+            //preorder traversal?
+            Console.Write("Preorder Traversal: ");
+            if (listOfNodes.Count!= 0)
+            {
+                PreOrder(listOfNodes[0]);
+            }
+            Console.WriteLine("\n");
+
+            //inorder traversal?
+            Console.Write("InOrder Traversal: ");
+            if (listOfNodes.Count != 0)
+            {
+                InOrder(listOfNodes[0]);
+            }
+            Console.WriteLine("\n");
+
+            //postorder traversal?
+            Console.Write("PostOrder Traversal: ");
+            if (listOfNodes.Count != 0)
+            {
+                PostOrder(listOfNodes[0]);
+            }
+            Console.WriteLine("\n");
+
+        }
+
+        private static int DepthofTree(Node node, int depth)
+        {
+            if (node.LeftNode == null && node.RightNode == null)
+            {
+                return depth;
+            }
+
+            if (node.LeftNode != null)
+            {
+               depth = DepthofTree(node.LeftNode, ++depth); 
+            }
+
+            if (node.RightNode != null)
+            {
+               depth = DepthofTree(node.RightNode, ++depth);
+            }
+
+            return depth;
+        }
+
+        private static void PreOrder(Node node)
+        {
+            Console.Write(node.Name + " ");
+
+            if (node.LeftNode == null && node.RightNode == null)
+            {
+                return;
+            }
+
+            if (node.LeftNode != null)
+            {
+                PreOrder(node.LeftNode);
+            }
+
+            if (node.RightNode != null)
+            {
+                PreOrder(node.RightNode);
+            }
+        }
+
+        private static void InOrder(Node node)
+        {
+
+            if (node.LeftNode == null && node.RightNode == null)
+            {
+                Console.Write(node.Name + " ");
+                return;
+            }
+
+            if (node.LeftNode != null)
+            {
+                PreOrder(node.LeftNode);
+                Console.Write(node.Name + " ");
+            }
+
+            if (node.RightNode != null)
+            {
+                PreOrder(node.RightNode);
+            }
+        }
+
+        private static void PostOrder(Node node)
+        {
+            if (node.LeftNode == null && node.RightNode == null)
+            {
+                Console.Write(node.Name + " ");
+                return;
+            }
+
+            if (node.LeftNode != null)
+            {
+                PreOrder(node.LeftNode);
+            }
+
+            if (node.RightNode != null)
+            {
+                PreOrder(node.RightNode);
+                Console.Write(node.Name + " ");
+            }
+            else Console.Write(node.Name + " ");
+        }
+    }
+}
