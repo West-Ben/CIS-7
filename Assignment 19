@@ -14,35 +14,41 @@ namespace Assinment19
 
         private static string input = "";
         private static List<Node> listOfNodes;
+        private static int numOfLeafs;
+        private static int Depth = 0;
+        private static bool isComplete = false;
+        private static Node nodeParent;
 
         public static void Main(string[] args)
         {
             int number = 0;
             listOfNodes = new List<Node>();
 
+
+            Console.WriteLine("Enter Root Node:\n (or enter q to quit)");
+            AddNode();
+
+            Console.Clear();
+
             while (input != "q")
             {
                 Display();
 
-                Console.WriteLine("1) Add Node\n2) Add left child to node\n3) Add right child to node\n(or enter q to quit)");
+                Console.WriteLine("1) Add left child to node\n2) Add right child to node\n(or enter q to quit)");
                 number = InputCheck();
 
                 switch (number)
                 {
                     case 1:
-                        AddNode();
-                        break;
-                    case 2:
                         AddChildNode(number);
                         break;
-                    case 3:
+                    case 2:
                         AddChildNode(number);
                         break;
                     default:
                         break;
                 }
-
-
+                
                 Console.Clear();
             }
         }
@@ -64,7 +70,7 @@ namespace Assinment19
             return num;
         }
 
-        private static void AddNode()
+        private static Node AddNode()
         {
             Console.Write("Name your node: ");
             input = Console.ReadLine();
@@ -75,28 +81,36 @@ namespace Assinment19
             };
 
             listOfNodes.Add(node);
+            return node;
         }
 
         private static void AddChildNode(int LorR)
         {
-            Console.Write("Choose node to be the child: ");
-            input = Console.ReadLine();
-
-            Node nodeChild = listOfNodes.Find(x => x.Name == input);
-
-            Console.WriteLine("\n");
-
+            Node nodeChild = AddNode();
             Console.Write("Choose node to be the parent: ");
             input = Console.ReadLine();
 
-            Node nodeParent = listOfNodes.Find(x => x.Name == input);
+            if (!listOfNodes.Exists(x => x.Name == input))
+            {
+                while (!listOfNodes.Exists(x => x.Name == input))
+                {
+
+                    if (!listOfNodes.Exists(x => x.Name == input))
+                    {
+                        Console.Write("\nNode does not exist\nChoose node to be the parent: ");
+                        input = Console.ReadLine();
+                    }
+                    else nodeParent = listOfNodes.Find(x => x.Name == input);
+                }
+            }
+            else nodeParent = listOfNodes.Find(x => x.Name == input);
 
             switch (LorR)
             {
-                case 2:
+                case 1:
                     nodeParent.LeftNode = nodeChild;
                     break;
-                case 3:
+                case 2:
                     nodeParent.RightNode = nodeChild;
                     break;
                 default:
@@ -118,62 +132,126 @@ namespace Assinment19
 
             //Depth of tree
             Console.Write("Depth of tree: ");
-            if (listOfNodes.Count != 0)
-            {
-                int depth = DepthofTree(listOfNodes[0], 1);
-                Console.Write(depth);
-            }
+            DepthofTree(listOfNodes[0], 1);
+            Console.Write(Depth);
 
             Console.WriteLine("\n");
 
             //is tree full?
+            Console.Write("Full tree: ");
+
+            numOfLeafs = Convert.ToInt32(Math.Pow(2, Depth - 1));
+            IsFull(listOfNodes[0], 1, Depth);
+
+            if (numOfLeafs == 0)
+                Console.Write("True");
+            else
+                Console.Write("False");
+
+            Console.WriteLine("\n");
 
             //is tree complete?
+            Console.Write("Complete tree: ");
+
+            IsComplete(listOfNodes[0],1, Depth);
+
+            if (isComplete)
+                Console.Write("True");
+            else
+                Console.Write("False");
+
+            Console.WriteLine("\n");
+
 
             //preorder traversal?
             Console.Write("Preorder Traversal: ");
-            if (listOfNodes.Count!= 0)
-            {
-                PreOrder(listOfNodes[0]);
-            }
+            PreOrder(listOfNodes[0]);
             Console.WriteLine("\n");
 
             //inorder traversal?
             Console.Write("InOrder Traversal: ");
-            if (listOfNodes.Count != 0)
-            {
-                InOrder(listOfNodes[0]);
-            }
+            InOrder(listOfNodes[0]);
             Console.WriteLine("\n");
 
             //postorder traversal?
             Console.Write("PostOrder Traversal: ");
-            if (listOfNodes.Count != 0)
-            {
-                PostOrder(listOfNodes[0]);
-            }
+            PostOrder(listOfNodes[0]);
             Console.WriteLine("\n");
 
         }
-
-        private static int DepthofTree(Node node, int depth)
+        
+        private static void IsFull(Node node, int depth, int maxDepth)
         {
             if (node.LeftNode == null && node.RightNode == null)
             {
-                return depth;
+                if (depth == maxDepth)
+                {
+                    numOfLeafs--;
+                }
+                return;
             }
 
             if (node.LeftNode != null)
             {
-               depth = DepthofTree(node.LeftNode, ++depth); 
+                IsFull(node.LeftNode,++depth,maxDepth);
             }
 
             if (node.RightNode != null)
             {
-               depth = DepthofTree(node.RightNode, ++depth);
+                IsFull(node.RightNode,++depth, maxDepth);
+            }
+        }
+
+        //is tree complete?
+        private static void IsComplete(Node node, int depth, int maxDepth)
+        {
+            if (node.LeftNode == null && node.RightNode == null)
+            {
+                return;
             }
 
-            return depth;
+            if (node.LeftNode != null)
+            {
+                if(node.LeftNode.LeftNode == null && node.LeftNode.RightNode == null && (depth + 1) == maxDepth)
+                {
+                    isComplete = true;
+                }
+
+                IsComplete(node.LeftNode,++depth, maxDepth);
+            }
+
+            if (node.RightNode != null)
+            {
+                if (node.RightNode.LeftNode == null && node.RightNode.RightNode == null && (depth + 1) >= maxDepth)
+                {
+                    isComplete = false;
+                }
+
+                IsComplete(node.RightNode,++depth, maxDepth);
+            }
+        }
+
+        private static void DepthofTree(Node node,int depth)
+        {
+            if (node.LeftNode == null && node.RightNode == null)
+            {
+                if (depth > Depth)
+                {
+                    Depth = depth;
+                }
+                return;
+            }
+
+            if (node.LeftNode != null)
+            {
+                DepthofTree(node.LeftNode, depth + 1);
+            }
+
+            if (node.RightNode != null)
+            {
+                DepthofTree(node.RightNode, depth + 1);
+            }
+            
         }
 
         private static void PreOrder(Node node)
