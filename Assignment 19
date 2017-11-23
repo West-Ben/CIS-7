@@ -130,6 +130,11 @@ namespace Assinment19
 
             Console.WriteLine("\n");
 
+            //Number of nodes
+            Console.Write("Number of nodes: " + listOfNodes.Count);
+
+            Console.WriteLine("\n");
+
             //Depth of tree
             Console.Write("Depth of tree: ");
             DepthofTree(listOfNodes[0], 1);
@@ -139,7 +144,6 @@ namespace Assinment19
 
             //is tree full?
             Console.Write("Full tree: ");
-
             numOfLeafs = Convert.ToInt32(Math.Pow(2, Depth - 1));
             IsFull(listOfNodes[0], 1, Depth);
 
@@ -152,7 +156,6 @@ namespace Assinment19
 
             //is tree complete?
             Console.Write("Complete tree: ");
-
             IsComplete(listOfNodes[0],1, Depth);
 
             if (isComplete)
@@ -166,16 +169,19 @@ namespace Assinment19
             //preorder traversal?
             Console.Write("Preorder Traversal: ");
             PreOrder(listOfNodes[0]);
+
             Console.WriteLine("\n");
 
             //inorder traversal?
             Console.Write("InOrder Traversal: ");
             InOrder(listOfNodes[0]);
+
             Console.WriteLine("\n");
 
             //postorder traversal?
             Console.Write("PostOrder Traversal: ");
             PostOrder(listOfNodes[0]);
+
             Console.WriteLine("\n");
 
         }
@@ -193,12 +199,12 @@ namespace Assinment19
 
             if (node.LeftNode != null)
             {
-                IsFull(node.LeftNode,++depth,maxDepth);
+                IsFull(node.LeftNode,depth + 1,maxDepth);
             }
 
             if (node.RightNode != null)
             {
-                IsFull(node.RightNode,++depth, maxDepth);
+                IsFull(node.RightNode,depth + 1, maxDepth);
             }
         }
 
@@ -217,7 +223,7 @@ namespace Assinment19
                     isComplete = true;
                 }
 
-                IsComplete(node.LeftNode,++depth, maxDepth);
+                IsComplete(node.LeftNode,depth + 1, maxDepth);
             }
 
             if (node.RightNode != null)
@@ -227,7 +233,7 @@ namespace Assinment19
                     isComplete = false;
                 }
 
-                IsComplete(node.RightNode,++depth, maxDepth);
+                IsComplete(node.RightNode,depth + 1, maxDepth);
             }
         }
 
