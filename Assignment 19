@@ -149,6 +149,7 @@ namespace Assinment19
 
             if (numOfLeafs == 0)
                 Console.Write("True");
+                isComplete = true;
             else
                 Console.Write("False");
 
@@ -156,10 +157,13 @@ namespace Assinment19
 
             //is tree complete?
             Console.Write("Complete tree: ");
-            IsComplete(listOfNodes[0],1, Depth);
+            
+            if (!isComplete)
+                IsComplete(listOfNodes[0],1, Depth);
 
             if (isComplete)
                 Console.Write("True");
+                isComplete = false;
             else
                 Console.Write("False");
 
