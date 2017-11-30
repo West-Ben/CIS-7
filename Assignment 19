@@ -90,28 +90,48 @@ namespace Assinment19
             Console.Write("Choose node to be the parent: ");
             input = Console.ReadLine();
 
-            if (!listOfNodes.Exists(x => x.Name == input))
-            {
-                while (!listOfNodes.Exists(x => x.Name == input))
+            do {
+                if (!listOfNodes.Exists(x => x.Name == input))
                 {
-
-                    if (!listOfNodes.Exists(x => x.Name == input))
-                    {
-                        Console.Write("\nNode does not exist\nChoose node to be the parent: ");
-                        input = Console.ReadLine();
-                    }
-                    else nodeParent = listOfNodes.Find(x => x.Name == input);
+                    Console.Write("\nNode does not exist\nChoose node to be the parent: ");
+                    input = Console.ReadLine();
                 }
-            }
-            else nodeParent = listOfNodes.Find(x => x.Name == input);
+
+                if (listOfNodes.Exists(x => x.Name == input))
+                { 
+                    nodeParent = listOfNodes.Find(x => x.Name == input);
+                }
+
+            } while (!listOfNodes.Exists(x => x.Name == input));
+
 
             switch (LorR)
             {
                 case 1:
-                    nodeParent.LeftNode = nodeChild;
+                    if (nodeParent.LeftNode != null)
+                    {
+                        Node nodeToOverwrite = listOfNodes.Find(x => x == nodeParent.LeftNode);
+                        listOfNodes.RemoveAt(listOfNodes.IndexOf(nodeToOverwrite));
+                        nodeParent.LeftNode = nodeChild;
+                    }
+                    else
+                    {
+                        nodeParent.LeftNode = nodeChild;
+                    }
+
                     break;
                 case 2:
-                    nodeParent.RightNode = nodeChild;
+                    if (nodeParent.RightNode != null)
+                    {
+                        Node nodeToOverwrite = listOfNodes.Find(x => x == nodeParent.RightNode);
+                        listOfNodes.RemoveAt(listOfNodes.IndexOf(nodeToOverwrite));
+                        nodeParent.RightNode = nodeChild;
+                    }
+                    else
+                    {
+                        nodeParent.RightNode = nodeChild;
+                    }
+
                     break;
                 default:
                     break;
@@ -137,35 +157,40 @@ namespace Assinment19
 
             //Depth of tree
             Console.Write("Depth of tree: ");
-            DepthofTree(listOfNodes[0], 1);
+            DepthofTree(listOfNodes[0], 0);
             Console.Write(Depth);
 
             Console.WriteLine("\n");
 
             //is tree full?
             Console.Write("Full tree: ");
-            numOfLeafs = Convert.ToInt32(Math.Pow(2, Depth - 1));
-            IsFull(listOfNodes[0], 1, Depth);
+            numOfLeafs = Convert.ToInt32(Math.Pow(2, Depth));
+            IsFull(listOfNodes[0], 0, Depth);
 
             if (numOfLeafs == 0)
+            {
                 Console.Write("True");
-                isComplete = true;
+            }
             else
+            {
                 Console.Write("False");
+            }
 
             Console.WriteLine("\n");
 
             //is tree complete?
             Console.Write("Complete tree: ");
-            
-            if (!isComplete)
-                IsComplete(listOfNodes[0],1, Depth);
+
+            isComplete = IsComplete(listOfNodes[0], 0);
 
             if (isComplete)
+            {
                 Console.Write("True");
-                isComplete = false;
+            }
             else
+            {
                 Console.Write("False");
+            }
 
             Console.WriteLine("\n");
 
@@ -212,33 +237,14 @@ namespace Assinment19
             }
         }
 
-        //is tree complete?
-        private static void IsComplete(Node node, int depth, int maxDepth)
+        private static bool IsComplete(Node node, int index)
         {
-            if (node.LeftNode == null && node.RightNode == null)
-            {
-                return;
-            }
+            if (node == null) return true;
 
-            if (node.LeftNode != null)
-            {
-                if(node.LeftNode.LeftNode == null && node.LeftNode.RightNode == null && (depth + 1) == maxDepth)
-                {
-                    isComplete = true;
-                }
+            if (index >= listOfNodes.Count) return false;
 
-                IsComplete(node.LeftNode,depth + 1, maxDepth);
-            }
+            return ((IsComplete(node.LeftNode, (2 * index) + 1)) && ( IsComplete(node.RightNode, (2 * index) + 2)));
 
-            if (node.RightNode != null)
-            {
-                if (node.RightNode.LeftNode == null && node.RightNode.RightNode == null && (depth + 1) >= maxDepth)
-                {
-                    isComplete = false;
-                }
-
-                IsComplete(node.RightNode,depth + 1, maxDepth);
-            }
         }
 
         private static void DepthofTree(Node node,int depth)
@@ -327,3 +333,4 @@ namespace Assinment19
         }
     }
 }
+
